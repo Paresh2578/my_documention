@@ -47,3 +47,49 @@ Ouqupaid store 3 character in VARCHAR
 
 
 
+### PrimaryKey
+How to Two or more column combination primary key
+
+```sql
+create table User(
+    id int,
+    name varchar(30),
+    Primary key (id , name)
+)
+```
+
+
+### top in MsSQL and Limit in MySQL
+select top rows
+
+```sql
+select top 1 * from user
+select * from user limit 1
+```
+
+
+
+### Group By
+Gorup by basically use for get value in group like number of student in each deparment
+
+```sql
+select deparment , count(name) from college
+group by deparmant
+```
+Only those parameter use that apply group by 
+
+#### This is wrong sintax
+```sql
+select deparment, name, count(name) from college
+group by deparmant
+```
+
+#### This is Write sintax
+```sql
+select deparment, name, count(name) from college
+group by deparmant , name
+```
+
+#### Nots in Where and Having
+Where use for apply condition in column
+Having use for apply condition in Group
