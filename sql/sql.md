@@ -93,3 +93,69 @@ group by deparmant , name
 #### Nots in Where and Having
 Where use for apply condition in column
 Having use for apply condition in Group
+
+
+#### Union
+Union use for two table data but not dupplication data get
+```sql
+select * from student
+union
+select * from teacher
+```
+
+#### Union All
+Union use for two table data with dupplication
+```sql
+select * from student
+union all
+select * from teacher
+```
+
+#### update with using joining query
+```sql
+UPDATE 
+    e
+SET 
+    e.Salary = e.Salary + (e.Salary * 0.1)
+FROM 
+    Employee AS e
+INNER JOIN 
+    Department AS d
+ON 
+    e.Department_Id = d.Department_Id
+WHERE 
+    d.Department_Name = 'CSE';      
+```
+
+#### delete with using joining query
+```sql
+delete e from Employee As e
+inner join department as d
+on e.Department_Id= d.Department_Id
+where d.Department_Name = 'CSE' and e.salary >= 4500   
+```
+
+#### Full Join
+Full join not sported in my SQL
+But full join use like left join and right join combination
+
+```sql
+select s.name , t.name from student as s
+left join teacher as t
+on s.id = t.id
+
+union
+
+select s.name , t.name from student as s
+right join teacher as t
+on s.id = t.id
+```
+
+
+#### SQL sub Queries
+write a query inside the other query that called SQL sub Queries
+
+- Totel Three way to write a query in inside to other query
+1. select
+2. from
+3. where
