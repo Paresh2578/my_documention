@@ -159,3 +159,33 @@ write a query inside the other query that called SQL sub Queries
 1. select
 2. from
 3. where
+
+
+#### Find privus value in table Using LAG Metod
+```
+SELECT 
+    SaleID,
+    SaleDate,
+    Amount,
+    LAG(Amount, 1, 0) OVER (ORDER BY SaleDate) AS PreviousAmount
+FROM 
+    Sales;
+```
+
+last 0 is options if use 
+
+
+
+#### One table value store in diffrent diffrent tables with condition
+```
+with
+startWith as 
+(select * from Activity where activity_type = 'start'),
+endWith as
+(select * from Activity where activity_type = 'end')
+select startWith.machine_id , round(avg(endWith.timesTamp - startWith.timestamp) , 3) as processing_time from startWith 
+join endWith 
+on startWith.machine_id = endWith.machine_id
+group by startWith.machine_id
+
+```

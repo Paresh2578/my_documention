@@ -232,6 +232,16 @@ db.customer.aggregate(
 
 
 
+## update Fild 
+```
+ let task = await Task.findByIdAndUpdate(taskId , {title , description , status} , {new : true});
+```
+If write {new :true} when return update task object
+else old task object
+
+
+
+
 
 
 
