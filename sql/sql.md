@@ -189,3 +189,20 @@ on startWith.machine_id = endWith.machine_id
 group by startWith.machine_id
 
 ```
+
+
+
+### apply some condition in count 
+```
+SELECT 
+    S.user_id , 
+    -- NOTE-1: 'COUNT()' doesn't consider/count NULL
+    --          so used 'CASE' to return 1 when condition satisfy else return NULL
+    -- NOTE-2: num/denom => integer unless either num or denom is float
+    --          hence for num or denom, either CAST(xx AS FLOAT) or multiple with 1.0 (faster shortcut)
+    ROUND( COUNT(CASE WHEN C.action = 'confirmed' THEN 1 ELSE NULL END)*1.0 /COUNT(S.user_id) ,2) AS confirmation_rate
+-- LEFT JOIN to include all users as per output requirement
+FROM Signups AS S LEFT JOIN Confirmations AS C 
+ON S.user_id = C.user_id 
+GROUP BY S.user_id 
+```
