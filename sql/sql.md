@@ -206,3 +206,12 @@ FROM Signups AS S LEFT JOIN Confirmations AS C
 ON S.user_id = C.user_id 
 GROUP BY S.user_id 
 ```
+
+
+### How to use between
+```
+select p.product_id , isnull(round((sum(p.price*u.units)/(sum(u.units)*1.0)),2) , 0) as average_price from Prices as p
+left join UnitsSold as u
+on p.product_id = u.product_id and u.purchase_date between p.start_date and p.end_date
+group by p.product_id
+```
