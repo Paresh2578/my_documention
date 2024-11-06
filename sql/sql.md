@@ -193,6 +193,7 @@ group by startWith.machine_id
 
 
 ### apply some condition in count 
+## using case 
 ```
 SELECT 
     S.user_id , 
@@ -206,6 +207,11 @@ FROM Signups AS S LEFT JOIN Confirmations AS C
 ON S.user_id = C.user_id 
 GROUP BY S.user_id 
 ```
+## using iif
+```
+select query_name , ,count(iif(rating < 3 , 1 , null)) as poor_query_percentage  from Queries
+```
+
 
 
 ### How to use between
@@ -214,4 +220,15 @@ select p.product_id , isnull(round((sum(p.price*u.units)/(sum(u.units)*1.0)),2) 
 left join UnitsSold as u
 on p.product_id = u.product_id and u.purchase_date between p.start_date and p.end_date
 group by p.product_id
+```
+
+
+
+### Find any Table Count
+```
+select r.contest_id , round(count(r.user_id)/(select count(user_id) from Users)*100,2) as percentage from Users as u
+inner join Register as r
+on r.user_id = u.user_id
+group by r.contest_id
+order by percentage desc , r.contest_id
 ```
