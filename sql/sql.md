@@ -232,3 +232,31 @@ on r.user_id = u.user_id
 group by r.contest_id
 order by percentage desc , r.contest_id
 ```
+
+### Date format 
+```
+select FORMAT(trans_date, 'yyyy-MM') as month  from  Transactions
+```
+
+### Convert and LEFT 
+```
+SELECT LEFT(CONVERT(VARCHAR, GETDATE(), 23), 7) AS YearMonth
+
+```
+
+### Check Triangel
+```
+select x , y , z ,case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end  as triangle from Triangle
+```
+
+### Get Prev and Next Value using Lag() for prev and Lead() for next
+```
+SELECT 
+        LAG(id) OVER (ORDER BY id) AS prev_id,
+        id,
+        LEAD(id) OVER (ORDER BY id) AS next_id,
+        LAG(num) OVER (ORDER BY id) AS prev_num,
+        num,
+        LEAD(num) OVER (ORDER BY id) AS next_num
+FROM logs
+```
