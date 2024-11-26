@@ -260,3 +260,13 @@ SELECT
         LEAD(num) OVER (ORDER BY id) AS next_num
 FROM logs
 ```
+
+
+### coalesce or isnull
+-COALESCE or isnull is a SQL function that returns the first non-null value from a list of expressions. It is commonly used to handle null values by providing a default when a field or expression may be null.
+-- isnull are only two argument are accept any one null then secoud value are pass
+```
+SELECT COALESCE(NULL, NULL, 'Hello', 'World');
+SELECT isnull(NULL, 'Hello');
+
+```
