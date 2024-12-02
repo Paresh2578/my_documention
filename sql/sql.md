@@ -162,7 +162,7 @@ write a query inside the other query that called SQL sub Queries
 
 
 #### Find privus value in table Using LAG Metod
-```
+```sql
 SELECT 
     SaleID,
     SaleDate,
@@ -177,7 +177,7 @@ last 0 is options if use
 
 
 #### One table value store in diffrent diffrent tables with condition
-```
+```sql
 with
 startWith as 
 (select * from Activity where activity_type = 'start'),
@@ -194,7 +194,7 @@ group by startWith.machine_id
 
 ### apply some condition in count 
 ## using case 
-```
+```sql
 SELECT 
     S.user_id , 
     -- NOTE-1: 'COUNT()' doesn't consider/count NULL
@@ -208,14 +208,14 @@ ON S.user_id = C.user_id
 GROUP BY S.user_id 
 ```
 ## using iif
-```
+```sql
 select query_name , ,count(iif(rating < 3 , 1 , null)) as poor_query_percentage  from Queries
 ```
 
 
 
 ### How to use between
-```
+```sql
 select p.product_id , isnull(round((sum(p.price*u.units)/(sum(u.units)*1.0)),2) , 0) as average_price from Prices as p
 left join UnitsSold as u
 on p.product_id = u.product_id and u.purchase_date between p.start_date and p.end_date
@@ -225,7 +225,7 @@ group by p.product_id
 
 
 ### Find any Table Count
-```
+```sql
 select r.contest_id , round(count(r.user_id)/(select count(user_id) from Users)*100,2) as percentage from Users as u
 inner join Register as r
 on r.user_id = u.user_id
@@ -239,18 +239,18 @@ select FORMAT(trans_date, 'yyyy-MM') as month  from  Transactions
 ```
 
 ### Convert and LEFT 
-```
+```sql
 SELECT LEFT(CONVERT(VARCHAR, GETDATE(), 23), 7) AS YearMonth
 
 ```
 
 ### Check Triangel
-```
+```sql
 select x , y , z ,case when x+y>z and y+z>x and z+x>y then 'Yes' else 'No' end  as triangle from Triangle
 ```
 
 ### Get Prev and Next Value using Lag() for prev and Lead() for next
-```
+```sql
 SELECT 
         LAG(id) OVER (ORDER BY id) AS prev_id,
         id,
@@ -265,8 +265,33 @@ FROM logs
 ### coalesce or isnull
 -COALESCE or isnull is a SQL function that returns the first non-null value from a list of expressions. It is commonly used to handle null values by providing a default when a field or expression may be null.
 -- isnull are only two argument are accept any one null then secoud value are pass
-```
+```sql
 SELECT COALESCE(NULL, NULL, 'Hello', 'World');
 SELECT isnull(NULL, 'Hello');
 
+```
+
+
+### create collum using union
+```sql
+select 'Low Salary' as category ,count(case when income < 20000 then 1 else null end)  as accounts_count from Accounts
+union
+select 'Average Salary' as category ,count(case when income between 20000 and 50000 then 1 else null end)  as accounts_count from Accounts
+union
+select 'High Salary' as category ,count(case when income > 50000 then 1 else null end)  as accounts_count from Accounts
+```
+
+
+### Exists and Not Exists 
+- this is use for check any record are exists or not in output
+```sql
+SELECT e.employee_id
+FROM Employees AS e
+WHERE 
+    e.salary <= 30000 
+    AND Not EXISTS (
+        SELECT 1 
+        FROM Employees AS e1 
+        WHERE e.manager_id = e1.employee_id
+    );
 ```

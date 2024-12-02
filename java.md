@@ -5,3 +5,11 @@
 
  int[] newArr = arr.clone();
 ```
+
+
+### startsWith methos 
+- this Methos return boolean
+```
+String str = "abc";
+System.out.println(str.startsWith("b"));
+```
